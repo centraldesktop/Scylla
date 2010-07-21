@@ -1,9 +1,50 @@
-= scylla
+                       _ _       
+                      | | |      
+        ___  ___ _   _| | | __ _ 
+       / __|/ __| | | | | |/ _` |
+       \__ \ (__| |_| | | | (_| |
+       |___/\___|\__, |_|_|\__,_|
+                  __/ |          
+                 |___/           
+       
+       
+      
+Scylla was a horrible monster with six grisly heads. 
 
-Description goes here.
 
+== Introduction
+
+Cucumber tests taking forever? Use scylla to run break them up into chunks and run them concurrently.
+
+== Installation
+
+You're not using Bundler? Let me guess, you still have a CD player right?
+  
+  $ [sudo] gem install scylla
+  
+For the rest of us.
+  
+  # in Gemfile
+  gem 'scylla'
+  
+  $ bundle install
+  
+
+== Configuration
+
+Configuration couldn't be simpler. Each yml file in config/scylla will be started in it's own thread.
+
+  APP_ROOT/config/scylla/tasks.yml
+
+== TODO
+
+* Tests
+* Logging
+* Unified output?
+* Call cucumber directly
+  
 == Note on Patches/Pull Requests
- 
+
 * Fork the project.
 * Make your feature addition or bug fix.
 * Add tests for it. This is important so I don't break it in a
@@ -14,4 +55,4 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2010 Jon Druse. See LICENSE for details.
+Copyright (c) 2010 CentralDesktop.com Jon Druse. See LICENSE for details.

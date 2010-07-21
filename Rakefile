@@ -5,8 +5,10 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "scylla"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Kill your Cucumber tests faster with Scylla}
+    gem.description = %Q{
+      Scylla was a horrible monster with six grisly heads. Now it will help us kill Cucumber tests with ease.
+    }
     gem.email = "jon@jondruse.com"
     gem.homepage = "http://github.com/jondruse/scylla"
     gem.authors = ["Jon Druse"]

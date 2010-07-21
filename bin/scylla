@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+$:.unshift(File.dirname(__FILE__) + '/../lib') unless $:.include?(File.dirname(__FILE__) + '/../lib')
+
+require 'scylla'
+
+begin
+  success = Scylla::Main.execute(ARGV.dup)
+  Kernel.exit(success ? 0 : 1)
+rescue SystemExit => e
+  Kernel.exit(e.status)
+end
+
