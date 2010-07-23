@@ -1,0 +1,7 @@
+workers: 3
+features: 
+  - features/add.feature
+  - features/another.feature
+  - feature/three.feature
+  - feature/four.feature
+  - feature/five.feature

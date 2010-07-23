@@ -1,34 +1,57 @@
+require 'scylla/runner'
+
 module Scylla
   class Spawner
     
-    attr_accessor :threads, :files
+    attr_accessor :threads, :config, :result_string
     
-    def initialize(files)
+    def initialize(config)
       self.threads = []
-      self.files = files
+      self.config  = config
+      self.result_string = ""
     end
     
     def run!
-      puts files.inspect
-      files.each {|f| spawn(f) }
-      threads
+      
+      puts config.inspect
+      
+      max_workers = config["workers"].to_i
+      features    = config["features"]
+      
+      loop do
+        # fill up the workers
+        # puts "filling up workers"
+        until active_threads.size == max_workers || features.empty?
+          spawn(features.shift)
+        end
+        
+        # wait while they work
+        # puts threads.inspect
+        loop do 
+          break if active_threads.size < max_workers
+        end
+      
+        # we're done!
+        break if features.empty? && active_threads.empty?
+        # sleep(10)
+      end
+      
+      result_string
     end
     
-    def spawn(path)
-      
+    private
+    
+    def spawn(file)
+      return if file.nil?
       t = Thread.new do
-        config = YAML.load_file(path)
-        Thread.current[:name] = name = File.basename(path, '.yml')
-        
-        log = File.new "/Users/sntjon/Desktop/#{name}.log", "a+"
-        log.write "started at #{Time.now}"
-        log.flush
-        log.write `#{config["command"]}`
-        log.write "Finished"
-        
+        result_string << Runner.new.run_feature!(file)
       end
       
       threads << t
+    end
+    
+    def active_threads
+      threads.map(&:alive?).delete_if {|t| !t }
     end
     
   end

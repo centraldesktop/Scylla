@@ -21,6 +21,9 @@ module Scylla
         opts.on("-o OUTPUT_FILE","--output OUTPUT_FILE","Direct the output somewhere other than STDOUT") do |out|
           options.output = File.new(out, "a+")
         end
+        opts.on("-c CONFIG_PATH","--config CONFIG_PATH","Tell Scylla where the config file is.") do |path|
+          options.config_file_path = path
+        end
         opts.on_tail("-h", "--help", "You're looking at it.") do
           STDOUT.puts opts.help
           Kernel.exit(0)
@@ -28,13 +31,13 @@ module Scylla
       end
       opts.parse!(args)
       extract_environment_variables
-      options.paths = args #whatever is left
-      options
+      self.options = options
     end
   
   private
   
     def extract_environment_variables
+      return if args.nil?
       args.delete_if do |arg|
         if arg =~ /^(\w+)=(.*)$/
           options.env_vars[$1] = $2

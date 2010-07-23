@@ -7,7 +7,7 @@ module Scylla
       end
     end
     
-    attr_accessor :args, :options, :threads
+    attr_accessor :args, :options
     
     def initialize(args)
       self.args    = args.dup
@@ -15,19 +15,17 @@ module Scylla
     end
     
     def execute!
-      self.threads = Spawner.new(gather_files).run!
-      threads.map(&:join)
-      puts 'done'
-    end    
+      start = Time.now
+      results = Spawner.new(get_yml_config).run!
+      puts results.inspect
+      puts "done: #{Time.now - start}"
+    end
     
   private
   
-    def gather_files
-      options.paths.inject([]) do |arr, p|
-        path = File.expand_path(p)
-        ymls = (Dir["#{path}/**/config/scylla/*.yml"].map {|p| File.expand_path(p)} ).uniq
-        arr += ymls
-      end
+    def get_yml_config
+      path = self.options.config_file_path || "#{Dir.pwd}/config/scylla.yml"
+      config = YAML.load_file(path)
     end
   
   end
