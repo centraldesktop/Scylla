@@ -13,7 +13,7 @@ module Scylla
       args = args
       #define the default options
       options = OpenStruct.new
-      options.output = STDOUT
+      options.output = StringIO.new #File.new("/Users/sntjon/Desktop/out.log","a+")
       options.env_vars = {}
       options.paths = [Dir.pwd]
 

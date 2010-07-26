@@ -1,42 +1,42 @@
 require 'scylla/runner'
-
+require 'cucumber/formatter/duration'
 module Scylla
   class Spawner
     
-    attr_accessor :threads, :config, :result_string
+    include Cucumber::Formatter::Duration
+    
+    attr_accessor :threads, :config, :result_string, :seconds
     
     def initialize(config)
       self.threads = []
       self.config  = config
       self.result_string = ""
+      self.seconds = 0
     end
     
     def run!
-      
-      puts config.inspect
-      
       max_workers = config["workers"].to_i
       features    = config["features"]
       
-      loop do
+      until features.empty? && active_threads.empty?
         # fill up the workers
-        # puts "filling up workers"
         until active_threads.size == max_workers || features.empty?
           spawn(features.shift)
+          sleep(3)
         end
         
         # wait while they work
-        # puts threads.inspect
-        loop do 
-          break if active_threads.size < max_workers
+        until active_threads.size < max_workers
+          sleep(1)
         end
-      
+        
+        
+        # threads.select {|t| t.alive? }.first.join
+        
         # we're done!
-        break if features.empty? && active_threads.empty?
-        # sleep(10)
       end
       
-      result_string
+      format_duration(self.seconds)
     end
     
     private
@@ -44,7 +44,7 @@ module Scylla
     def spawn(file)
       return if file.nil?
       t = Thread.new do
-        result_string << Runner.new.run_feature!(file)
+        self.seconds += Runner.new.run_feature!(file)
       end
       
       threads << t

@@ -15,10 +15,8 @@ module Scylla
     end
     
     def execute!
-      start = Time.now
       results = Spawner.new(get_yml_config).run!
-      puts results.inspect
-      puts "done: #{Time.now - start}"
+      puts results
     end
     
   private

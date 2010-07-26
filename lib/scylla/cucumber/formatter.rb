@@ -24,6 +24,10 @@ module Cucumber #:nodoc:
       # Removed all progress output
       def progress(status)
       end
+      
+      def print_tag_limit_warnings(*args)
+      end
+      
     end
   end
 end
