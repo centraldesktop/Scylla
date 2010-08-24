@@ -1,5 +1,10 @@
+require 'rubygems'
+require 'cucumber'
+require 'cucumber/formatter/duration'
+
 module Scylla
   class Main
+    include Cucumber::Formatter::Duration
     
     class << self
       def execute(args)
@@ -15,8 +20,10 @@ module Scylla
     end
     
     def execute!
+      start = Time.now
       results = Spawner.new(get_yml_config).run!
-      puts results
+      puts results + " testing time"
+      puts format_duration(Time.now - start) + " actual time"
     end
     
   private

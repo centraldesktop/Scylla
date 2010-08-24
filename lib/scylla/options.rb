@@ -13,14 +13,10 @@ module Scylla
       args = args
       #define the default options
       options = OpenStruct.new
-      options.output = StringIO.new #File.new("/Users/sntjon/Desktop/out.log","a+")
       options.env_vars = {}
       options.paths = [Dir.pwd]
 
       opts = OptionParser.new do |opts|
-        opts.on("-o OUTPUT_FILE","--output OUTPUT_FILE","Direct the output somewhere other than STDOUT") do |out|
-          options.output = File.new(out, "a+")
-        end
         opts.on("-c CONFIG_PATH","--config CONFIG_PATH","Tell Scylla where the config file is.") do |path|
           options.config_file_path = path
         end
