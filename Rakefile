@@ -7,7 +7,7 @@ begin
     gem.name = "scylla"
     gem.summary = %Q{Kill your Cucumber tests faster with Scylla}
     gem.description = %Q{
-      Scylla was a horrible monster with six grisly heads. Now it will help us kill Cucumber tests with ease.
+      Scylla was a horrible monster with six grisly bear heads. Now it will help us kill Cucumber tests with ease.
     }
     gem.email = "jon@jondruse.com"
     gem.homepage = "http://github.com/jondruse/scylla"

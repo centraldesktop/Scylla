@@ -17,10 +17,13 @@ module Scylla
       File.open(export_path + feature, "w") {|f| f.write(File.read(html.path)) }
       results = get_stats(html.path, feature)
       return results, (Time.now - start)
+      
+    rescue => e
+      puts e
     end  
     
     
-    def get_stats(path, file, feature)
+    def get_stats(path, feature)
       results = {}
       doc     = Nokogiri::HTML(File.read(path))
       text    = doc.css("script").last.text
