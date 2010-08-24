@@ -34,16 +34,23 @@ For the rest of us.
 
 == Configuration
 
-Configuration couldn't be simpler. Each yml file in config/scylla will be started in it's own thread.
+Configuration couldn't be simpler. Use YAML!
 
-  APP_ROOT/config/scylla/tasks.yml
+  # in APP_ROOT/config/scylla/tasks.yml
+  
+  cucumber: cucumber -p mycustomprofile # this is the cucumber command scylla will use.  defaults to just 'cucumber'
+  export: /path/to/output/directory
+  workers: 6 # tell scylla how many workers to maintain
+  features: # provide scylla with the features to run, you can give it directories and it will automatically break up the features.
+    - features/feature_one.feature
+    - features/set_of_features
+  
 
 == TODO
 
 * Tests
 * Logging
-* Unified output?
-* Call cucumber directly
+* Unified output
   
 == Note on Patches/Pull Requests
 
@@ -54,6 +61,10 @@ Configuration couldn't be simpler. Each yml file in config/scylla will be starte
 * Commit, do not mess with rakefile, version, or history.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
+
+== Further Notes
+
+Scylla was written using JRuby.  If you're not using JRuby, try Hydra instead.
 
 == Copyright
 
