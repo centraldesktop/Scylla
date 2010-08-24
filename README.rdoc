@@ -36,7 +36,7 @@ For the rest of us.
 
 Configuration couldn't be simpler. Use YAML!
 
-  # in APP_ROOT/config/scylla/tasks.yml
+  # in APP_ROOT/config/scylla.yml
   
   cucumber: cucumber -p mycustomprofile # this is the cucumber command scylla will use.  defaults to just 'cucumber'
   export: /path/to/output/directory
