@@ -17,6 +17,9 @@ module Scylla
       options.paths = [Dir.pwd]
 
       opts = OptionParser.new do |opts|
+        opts.on("-o OUT_DIR","--output OUT_DIR","Tell Scylla where to put the results.") do |path|
+          options.config_file_path = path
+        end
         opts.on("-c CONFIG_PATH","--config CONFIG_PATH","Tell Scylla where the config file is.") do |path|
           options.config_file_path = path
         end

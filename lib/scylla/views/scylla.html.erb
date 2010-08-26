@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+	<title>Scylla Overview</title> 
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" /> 
+	<link href="styles.css" type="text/css" rel="stylesheet" /> 
+</head> 
+<body> 
+ 
+<div id="background">
+  <div id="wrapper">
+    <div class="lastupdate">
+      <!-- Last updated on August 12, 2010 -->
+    </div>
+    <div class="arrivals-board">
+      <h1>
+        Current Progress
+      </h1>
+      <div class="legend">
+        <span class="title">Run #</span> <span class="target">Success</span> <span class="status">Status</span>
+      </div>
+      <ul>
+        <li class="project">
+          <h2>
+            <span class="title"><strong>Run 1234</strong></span>
+            <span class="target"><strong><%= @results.overall_score %></strong></span>
+            <span class="status <%= @results.css_class %>"><strong><%= @results.message %></strong></span>
+          </h2>
+          <p class="info">
+            <span class="label">Features:</span><%= @results.failing_scenarios.join(", ") %>
+          </p>
+          <!-- <p class="crew">
+            <span class="label">Crew:</span> <span class="person">Jürgen</span> <span class="person">Andreas</span> <span class="person">Bartek</span> <span class="person">Erich</span> <span class="person">Konstantin</span> <span class="person">Chris</span>
+          </p> -->
+          <p class="eta">
+            <span class="label">Scenarios:</span> <%= @results.total_scenarios %>/<%= @results.sc_pass %> <%= @results.sc_pass_rate %>
+          </p>
+          <p class="eta">
+            <span class="label">Steps:</span> <%= @results.total_steps %>/<%= @results.st_pass %> <%= @results.st_pass_rate %>
+          </p>
+        </li>
+        <li class="project">
+          <h2>
+            <span class="title"><strong>Customizable Font Size</strong></span> <span title="Things for Mac" class="target"><strong>TM 1.4</strong></span> <span class="status green"><strong>All Good</strong></span>
+          </h2>
+          <p class="info">
+            <span class="label">Info:</span>Option to display to-dos with larger font sizes.
+          </p>
+          <p class="crew">
+            <span class="label">Crew:</span> <span class="person">Christian</span> <span class="person">Chris</span>
+          </p>
+          <p class="eta">
+            <span class="label">Status:</span>External beta.
+          </p>
+        </li>
+        <li class="project">
+          <h2>
+            <span class="title"><strong>Repeating Tasks</strong></span> <span title="Things for iPad" class="target"><strong>TiP 1.x</strong></span> <span class="status red"><strong>Failed</strong></span>
+          </h2>
+          <p class="info">
+            <span class="label">Info:</span>A port of our powerful repeating tasks feature to the iPad.
+          </p>
+          <p class="crew">
+            <span class="label">Crew:</span> <span class="person">Werner</span>
+          </p>
+          <p class="eta">
+            <span class="label">Status:</span>Waiting for the completion of TT 1.7.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+ 
+</body> 
+</html> 

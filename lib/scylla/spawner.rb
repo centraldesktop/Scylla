@@ -8,20 +8,18 @@ module Scylla
     
     include Cucumber::Formatter::Duration
     
-    attr_accessor :threads, :config, :results, :seconds
-    
-    def initialize(config)
-      self.threads = []
-      self.config  = config
-      self.results = []
-      self.seconds = 0
+    def initialize(config, options)
+      @threads = []
+      @config  = config
+      @seconds = 0
+      @options = options
     end
     
     def run!
-      max_workers = config["workers"].to_i
+      max_workers = @config["workers"].to_i
       features    = []
       
-      config["features"].each do |path|
+      @config["features"].each do |path|
         if File.directory?(path)
           features += Dir["#{path}/**/*.feature"]
         else
@@ -29,15 +27,15 @@ module Scylla
         end
       end
       
-      config["export_path"] = config["export"] + "scylla_run_#{Time.now.to_i}/"
-      FileUtils.mkdir_p(config["export_path"])
+      @config["export_path"] = @config["export"] + "scylla_run_#{Time.now.to_i}/"
+      FileUtils.mkdir_p(@config["export_path"])
       
       # this is the main loop, picking off features and spawning new threads
       until features.empty? && active_threads.empty?
         # fill up the workers
         until active_threads.size == max_workers || features.empty?
           spawn(features.shift)
-          puts threads.inspect
+          puts @threads.inspect
         end
         
         # wait while they work
@@ -48,9 +46,9 @@ module Scylla
         # we're done!
       end
       
-      pp self.results
+      Generator.new(@options).generate!
       
-      format_duration(self.seconds)
+      format_duration(@seconds)
     end
     
     private
@@ -58,16 +56,15 @@ module Scylla
     def spawn(file)
       return if file.nil?
       t = Thread.new do  
-        res, secs = Runner.new.run_feature!(file, config)
-        self.seconds += secs
-        self.results << res
+        secs = Runner.new.run_feature!(file, @config)
+        @seconds += secs
       end
       
-      threads << t
+      @threads << t
     end
     
     def active_threads
-      threads.map(&:alive?).delete_if {|t| !t }
+      @threads.map(&:alive?).delete_if {|t| !t }
     end
     
   end

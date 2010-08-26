@@ -7,7 +7,8 @@ require 'ostruct'
 require 'scylla/main'
 require 'scylla/options'
 require 'scylla/spawner'
-require 'scylla/tree_walker'
+require 'scylla/generator'
+
 
 module Scylla
   
