@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jon Druse"]
-  s.date = %q{2010-08-24}
+  s.date = %q{2010-09-01}
   s.default_executable = %q{scylla}
   s.description = %q{
       Scylla was a horrible monster with six grisly bear heads. Now it will help us kill Cucumber tests with ease.
@@ -30,12 +30,13 @@ Gem::Specification.new do |s|
      "bin/scylla",
      "example/config/scylla.yml",
      "lib/scylla.rb",
-     "lib/scylla/formatter/scylla.rb",
+     "lib/scylla/generator.rb",
      "lib/scylla/main.rb",
      "lib/scylla/options.rb",
      "lib/scylla/runner.rb",
      "lib/scylla/spawner.rb",
-     "lib/scylla/tree_walker.rb",
+     "lib/scylla/views/scylla.html.erb",
+     "scylla.gemspec",
      "test/helper.rb",
      "test/test_scylla.rb"
   ]
