@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'nokogiri'
 require 'yaml'
 require 'optparse'
 require 'ostruct'
