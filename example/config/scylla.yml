@@ -1,7 +1,8 @@
-workers: 3
+cucumber: cucumber -p default -p int
+export: /Users/sntjon/Desktop/test_results/
+workers: 4
 features: 
-  - features/add.feature
-  - features/another.feature
-  - feature/three.feature
-  - feature/four.feature
-  - feature/five.feature
+  - features/smoke_test/
+  - features/permissions_check/file_permissions.feature
+  - features/permissions_check/system_folders.feature
+  - features/permissions_check/tab_navigation.feature

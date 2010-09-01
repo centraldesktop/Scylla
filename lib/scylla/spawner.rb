@@ -27,7 +27,7 @@ module Scylla
         end
       end
       
-      @config["export_path"] = @config["export"] + "scylla_run_#{Time.now.to_i}/"
+      @config["export_path"] = @options.export_path || @config["export"] + "scylla_run_#{Time.now.to_i}/"
       FileUtils.mkdir_p(@config["export_path"])
       
       # this is the main loop, picking off features and spawning new threads
@@ -35,7 +35,7 @@ module Scylla
         # fill up the workers
         until active_threads.size == max_workers || features.empty?
           spawn(features.shift)
-          puts @threads.inspect
+          # puts @threads.inspect
         end
         
         # wait while they work
@@ -46,7 +46,7 @@ module Scylla
         # we're done!
       end
       
-      Generator.new(@options).generate!
+      # Generator.new(@options).generate!
       
       format_duration(@seconds)
     end
