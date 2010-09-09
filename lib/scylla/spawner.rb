@@ -31,6 +31,8 @@ module Scylla
       features = features.chunk(max_workers)
       
       @config["export_path"] = @options.export_path || @config["export"] + "scylla_run_#{Time.now.to_i}/"
+      @options.export_path = @config["export_path"] #keep them synced up
+
       FileUtils.mkdir_p(@config["export_path"])
 
       features.each {|f| spawn(f.join(" ")) }
@@ -40,7 +42,7 @@ module Scylla
         sleep(5)
       end
 
-      # Generator.new(@options).generate!
+      Generator.new(@options.export_path || @config["export"]).generate!
       
       format_duration(@seconds)
     end

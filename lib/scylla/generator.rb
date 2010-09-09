@@ -1,43 +1,42 @@
 require 'ostruct'
 require 'erb'
+require 'hpricot'
 
 module Scylla
   class Generator
     
-    def initialize(raw_results, options)
-      @raw_results = raw_results
-      @options     = options
-      @template    = "views/scylla.html.erb"
-      @results     = OpenStruct.new({
-        :title             => "Run 1234",
-        :total_scenarios   => 0,
-        :total_steps       => 0,
-        :sc_pass           => 0,
-        :st_pass           => 0,
-        :features          => [],
-        :failing_scenarios => []
-      })
+    def initialize(results_path)
+      @results_path = results_path
+      @template     = "views/scylla.html.erb"
     end
     
     def generate!
-      @raw_results.each do |r|
-        feature_name = r.keys.first.split("/").last.gsub(/\.feature/,'')
-        @results.features << feature_name
-        res = r.values.first
-
-        @results.total_scenarios += res[:scenarios][:total].to_i
-        @results.sc_pass         += res[:scenarios][:passed].to_i
-        @results.total_steps     += res[:steps][:total].to_i
-        @results.st_pass         += res[:steps][:passed].to_i
-
-        @results.failing_scenarios << feature_name if res[:scenarios][:passed].to_i < res[:scenarios][:total].to_i
-      end
-
-      @results.sc_pass_rate = (@results.sc_pass * 100 / @results.total_scenarios )
-      @results.st_pass_rate = (@results.st_pass * 100 / @results.total_steps )
-      @results.overall_score = (@results.sc_pass_rate * @results.st_pass_rate) * 100 / 200
+      @runs = []
       
-      @results.message, @results.css_class = *get_message
+      Dir["#{@results_path}/*"].each do |run|
+        ran_at = Time.at(run.match(/\d+/)[0].to_i)
+        
+        @results = OpenStruct.new({
+          :total_scenarios   => 0,
+          :sc_pass           => 0,
+          :features          => [],
+          :failing_scenarios => []
+        })
+        
+        Dir["#{run}/TEST*"].each do |result_path| 
+          
+          result = get_stats(result_path)
+          @results.failing_scenarios << result.name if result.failures.to_i > 0
+          @results.total_scenarios += result.tests.to_i
+          @results.sc_pass         += result.tests.to_i - (result.failures.to_i + result.errors.to_i)
+        end
+        
+        @results.sc_pass_rate = (@results.sc_pass * 100 / @results.total_scenarios )
+        @results.message, @results.css_class = *get_message(@results.sc_pass_rate)
+        @runs << OpenStruct.new({:name => ran_at.strftime("%a %m.%d.%y at %I:%M %p"), :results => @results})
+      end
+      
+      @runs = @runs.reverse
       
       generate_template
     end
@@ -45,46 +44,24 @@ module Scylla
     private
     
     def generate_template
-      begin
-        erb = ERB.new(IO.read(@file)).result(binding)
-      rescue Exception => e
-        raise "#{@file} was found, but could not be parsed with ERB. Got #{e}"
-      end
-
+      erb = ERB.new(IO.read(@template)).result(binding)
       File.open('/Users/sntjon/Desktop/scylla/scylla.html', 'w') {|f| f.write(erb) }
     end
     
-    def get_message
-      total = (@results.sc_pass_rate + @results.st_pass_rate)
-      case total.to_i
-      when 0..190
+    def get_message(int)
+      case int.to_i
+      when 0..97
         ["Failed","red"]
-      when 190..199
+      when 98, 99
         ["Almost!","yellow"]
-      when 200
+      when 100
         ["All Good","green"]
       end
     end
 
-    def get_stats(path, feature)
-      results = {}
-      doc     = Nokogiri::HTML(File.read(path))
-      text    = doc.css("script").last.text
-      md      = text.match(/^document.getElementById\('totals'\).innerHTML = "(.*)";$/)
-      totals  = md.captures.shift.split("<br />")
-      
-      totals.each do |total|
-        hash = {}
-        res = total.split(/( \(|, )/).select {|t| t.to_i > 0 }
-        res.each {|r| r.gsub!(/\)$/,'')}
-        type = res.shift
-        
-        res.each {|r| hash[r.split.last.to_sym] = r.to_i }
-        hash[:total] = type.to_i
-        results[type.split.last.to_sym] = hash
-      end
-      
-      {feature => results}
+    def get_stats(path) 
+      doc     = open(path) {|f| Hpricot(f) }
+      results = OpenStruct.new(doc.at("testsuite").attributes.to_hash)
     end
 
   end
