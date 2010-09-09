@@ -35,22 +35,11 @@ module Scylla
 
       features.each {|f| spawn(f.join(" ")) }
       
-      # # this is the main loop, picking off features and spawning new threads
-      # until features.empty? && active_threads.empty?
-      #   # fill up the workers
-      #   until active_threads.size == max_workers || features.empty?
-      #     spawn(features.shift)
-      #     # puts @threads.inspect
-      #   end
-      #   
-      #   # wait while they work
-      #   until active_threads.size < max_workers
-      #     sleep(1)
-      #   end
-      #   
-      #   # we're done!
-      # end
-      
+      #wait while they work
+      until active_threads.empty?
+        sleep(5)
+      end
+
       # Generator.new(@options).generate!
       
       format_duration(@seconds)
