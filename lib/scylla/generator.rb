@@ -1,3 +1,4 @@
+require 'fileutils'
 require 'ostruct'
 require 'erb'
 require 'hpricot'
@@ -8,6 +9,7 @@ module Scylla
     def initialize(results_path)
       @results_path = results_path
       @template     = "#{File.dirname(__FILE__)}/views/scylla.html.erb"
+      @assets       = "#{File.dirname(__FILE__)}/assets/."
     end
     
     def generate!
@@ -45,7 +47,8 @@ module Scylla
     
     def generate_template
       erb = ERB.new(IO.read(@template)).result(binding)
-      File.open('/Users/sntjon/Desktop/scylla/scylla.html', 'w') {|f| f.write(erb) }
+      File.open("#{@results_path}/scylla.html", 'w') {|f| f.write(erb) }
+      FileUtils.cp_r(@assets, @results_path)
     end
     
     def get_message(int)
@@ -59,7 +62,7 @@ module Scylla
       end
     end
 
-    def get_stats(path) 
+    def get_stats(path)
       doc     = open(path) {|f| Hpricot(f) }
       results = OpenStruct.new(doc.at("testsuite").attributes.to_hash)
     end

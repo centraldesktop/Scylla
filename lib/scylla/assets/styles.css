@@ -1,0 +1,80 @@
+/* Kill Defaults */
+html,body,p,ul,ol,dl,li,h1,h2,h3,h4,img{margin:0;padding:0;}
+ul{list-style:none;}
+img{border:0;}
+a{outline:none;}
+/*
+============================================
+Layout
+============================================
+*/
+#wrapper{width:910px;margin-left:auto;margin-right:auto;position:relative;}
+
+
+body{background:url(images/bg.jpeg);}
+/* AIRPORT */
+#wrapper{width:720px;}
+/* LAST UPDATE */
+.lastupdate{font-size:14px;color:#f2f2f2;text-align:center;margin:20px 0px 0px 0px;height:20px;}
+/* BOARD */
+.arrivals-board{font-family:'Lucida Grande',Helvetica,Arial,sans-serif;color:#fff;width:692px;margin:10px 10px 50px 10px;border:1px solid #353a3b;-webkit-border-radius:5px;-moz-border-radius:5px;-webkit-box-shadow:0px 2px 4px #000;-moz-box-shadow:0px 2px 4px #000;background:#333;background:url(images/airport-board-background-bottom.png) bottom left repeat;background:url(images/airport-board-background-top.png) top left repeat-x,
+url(images/airport-board-background-bottom.png) bottom left repeat;}
+/* VARIOUS BOARD STYLES */
+.arrivals-board a{color:#b2d9ff;}
+/* BOARD HEADER */
+h1{font-weight:normal;font-size:24px;text-shadow:0px -1px 0px #000;padding:15px 15px 10px 15px;}
+/* LEGEND */
+.legend{position:relative;font-size:9px;font-weight:bold;text-transform:uppercase;text-shadow:0px -1px 0px #222;color:#666;height:30px;padding:0px 15px;border-bottom:1px solid rgba(0,0,0,0.25);}
+.legend span{display:block;position:absolute;top:10px;}
+.legend .title{left:12px;}
+.legend .target{left:412px;}
+.legend .status{left:532px;}
+/* PROJECTS */
+.project{font-size:18px;line-height:24px;position:relative;margin:0px;padding:45px 0px 30px 0px;border-top:1px solid #373737;border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid #333;border-bottom:1px solid rgba(0,0,0,0.25);background:-webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0.05)),to(rgba(255,255,255,0.0))) repeat-x;-webkit-background-size:100px 100px;}
+/* PROJECT HEADLINE */
+.project h2{font-size:15px;line-height:38px;font-weight:normal;color:#eee;text-transform:uppercase;text-shadow:0px -1px 0px #000;margin:8px 0px 16px 0px;padding:0px 10px 0px 10px;}
+.project h2 .title,
+.project h2 .target,
+.project h2 .status{display:block;height:38px;position:absolute;top:8px;background-image:url(images/airport-display-background-left.png);background-position:top left;background-repeat:no-repeat;margin-right:5px;padding-left:8px;overflow:hidden;}
+.project h2 .title{left:10px;width:382px;}
+.project h2 .target{left:410px;width:100px;}
+.project h2 .status{left:530px;width:140px;}
+.project h2 span strong{display:block;font-weight:inherit;background-image:url(images/airport-display-background-right.png);background-position:top right;background-repeat:no-repeat;padding-left:3px;/* add 8 from parent */}
+.project h2 span .strikethrough{display:block;height:38px;background:url(images/airport-display-strikethrough.png) 0px 17px repeat-x;position:absolute;top:0px;left:2px;}
+.project h2 .title .strikethrough{width:386px;}
+.project h2 .target .strikethrough{width:104px;}
+.project h2 .status .strikethrough{width:144px;}
+/* ICONS */
+/* COLORS */
+.project h2 .disabled{color:#777;}
+.project h2 .red{color:#ff4040;color:rgba(255,88,88,1.0);}
+.project h2 .green{color:#c7ffab;color:rgba(199,255,171,1.0);}
+.project h2 .blue{color:#cce5ff;color:rgba(204,229,255,1.0);}
+.project h2 .yellow{color:#ffefa1;}
+.project h2 .red.glow{color:rgba(255,88,88,1.0);text-shadow:0px -1px 0px #000,
+0px 0px 5px rgba(255,88,88,0.8);/*
+-webkit-animation-name:redPulse;-webkit-animation-duration:2s;-webkit-animation-iteration-count:infinite;*/}
+.project h2 .green.glow{text-shadow:0px -1px 0px #000,
+0px 0px 5px rgba(199,255,171,0.8);-webkit-animation-name:greenPulse;-webkit-animation-duration:2s;-webkit-animation-iteration-count:infinite;}
+.project h2 .blue.glow{text-shadow:0px -1px 0px #000,
+0px 0px 5px rgba(204,229,225,0.8);-webkit-animation-name:bluePulse;-webkit-animation-duration:2s;-webkit-animation-iteration-count:infinite;}
+/* PULSE ANIMATION */
+@-webkit-keyframes redPulse{from{text-shadow:0px -1px 0px #000,0px 0px 5px rgba(255,88,88,0.2);}
+50%{color:rgba(255,100,100,1.0)
+text-shadow:0px -1px 0px #000,0px 0px 5px rgba(255,88,88,1.0);}
+to{text-shadow:0px -1px 0px #000,0px 0px 5px rgba(255,88,88,0.2);}
+}
+@-webkit-keyframes greenPulse{from{text-shadow:0px -1px 0px #000,0px 0px 5px rgba(199,255,171,0.2);}
+50%{color:rgba(228,255,210,1.0)
+text-shadow:0px -1px 0px #000,0px 0px 5px rgba(199,255,171,1.0);}
+to{text-shadow:0px -1px 0px #000,0px 0px 5px rgba(199,255,171,0.2);}
+}
+@-webkit-keyframes bluePulse{from{text-shadow:0px -1px 0px #000,0px 0px 5px rgba(204,229,225,0.3);}
+50%{color:rgba(205,235,255,1.0);text-shadow:0px -1px 0px #000,0px 0px 5px rgba(204,229,225,1.0);}
+to{text-shadow:0px -1px 0px #000,0px 0px 5px rgba(204,229,225,0.3);}
+}
+/* PROJECT BODY */
+.project p{font-size:11px;line-height:14px;color:#aaa;width:418px;position:relative;margin-left:118px;margin-bottom:5px;}
+.project p .label{display:block;width:115px;position:absolute;left:-121px;top:0px;font-size:10px;color:#777;text-align:right;font-weight:bold;text-transform:uppercase;text-shadow:0px -1px 0px #000;}
+.project .person{margin-right:5px;}
+.project .person:before{content:url(images/airport-display-person.png);padding-right:3px;}
