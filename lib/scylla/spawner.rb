@@ -29,20 +29,20 @@ module Scylla
       
       # divide the features up evenly between the workers
       features = features.chunk(max_workers)
-      
-      @config["export_path"] = @options.export_path || @config["export"] + "scylla_run_#{Time.now.to_i}/"
+      root_path = @options.export_path || @config["export"]
+      @config["export_path"] = root_path + "scylla_run_#{Time.now.to_i}/"
       @options.export_path = @config["export_path"] #keep them synced up
 
       FileUtils.mkdir_p(@config["export_path"])
 
-      features.each {|f| spawn(f.join(" ")) }
+      features.each {|f| spawn(f.join(" ")) unless f.empty? }
       
       #wait while they work
       until active_threads.empty?
         sleep(5)
       end
 
-      Generator.new(@options.export_path || @config["export"]).generate!
+      Generator.new(root_path).generate!
       
       format_duration(@seconds)
     end

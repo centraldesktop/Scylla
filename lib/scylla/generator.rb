@@ -7,13 +7,13 @@ module Scylla
     
     def initialize(results_path)
       @results_path = results_path
-      @template     = "views/scylla.html.erb"
+      @template     = "#{File.dirname(__FILE__)}/views/scylla.html.erb"
     end
     
     def generate!
       @runs = []
       
-      Dir["#{@results_path}/*"].each do |run|
+      Dir["#{@results_path}/*"].reverse.each do |run|
         ran_at = Time.at(run.match(/\d+/)[0].to_i)
         
         @results = OpenStruct.new({
@@ -34,9 +34,9 @@ module Scylla
         @results.sc_pass_rate = (@results.sc_pass * 100 / @results.total_scenarios )
         @results.message, @results.css_class = *get_message(@results.sc_pass_rate)
         @runs << OpenStruct.new({:name => ran_at.strftime("%a %m.%d.%y at %I:%M %p"), :results => @results})
+        
+        break if @runs.size == 10
       end
-      
-      @runs = @runs.reverse
       
       generate_template
     end
