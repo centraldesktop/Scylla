@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jon Druse"]
-  s.date = %q{2010-09-09}
+  s.date = %q{2010-09-10}
   s.default_executable = %q{scylla}
   s.description = %q{
       Scylla was a horrible monster with six grisly bear heads. Now it will help us kill Cucumber tests with ease.
