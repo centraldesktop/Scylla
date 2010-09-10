@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{scylla}
-  s.version = "0.1.1"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jon Druse"]
@@ -30,6 +30,15 @@ Gem::Specification.new do |s|
      "bin/scylla",
      "example/config/scylla.yml",
      "lib/scylla.rb",
+     "lib/scylla/assets/images/airport-arrivalsicon.png",
+     "lib/scylla/assets/images/airport-board-background-bottom.png",
+     "lib/scylla/assets/images/airport-board-background-top.png",
+     "lib/scylla/assets/images/airport-display-background-left.png",
+     "lib/scylla/assets/images/airport-display-background-right.png",
+     "lib/scylla/assets/images/airport-display-person.png",
+     "lib/scylla/assets/images/airport-display-strikethrough.png",
+     "lib/scylla/assets/images/bg.jpeg",
+     "lib/scylla/assets/styles.css",
      "lib/scylla/generator.rb",
      "lib/scylla/main.rb",
      "lib/scylla/options.rb",
