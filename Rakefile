@@ -13,6 +13,7 @@ begin
     gem.homepage = "http://github.com/jondruse/scylla"
     gem.authors = ["Jon Druse"]
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_dependency "hpricot", ">= 0.8.2"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
