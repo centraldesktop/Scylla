@@ -15,13 +15,17 @@ module Scylla
       options = OpenStruct.new
       options.env_vars = {}
       options.paths = [Dir.pwd]
-
+      options.generate_only = false
+      
       opts = OptionParser.new do |opts|
         opts.on("-o OUT_DIR","--output OUT_DIR","Tell Scylla where to put the results.") do |path|
           options.export_path = path
         end
         opts.on("-c CONFIG_PATH","--config CONFIG_PATH","Tell Scylla where the config file is.") do |path|
           options.config_file_path = path
+        end
+        opts.on("--generate-only","Dont run the tests, just generate the results page.") do
+          options.generate_only = true
         end
         opts.on_tail("-h", "--help", "You're looking at it.") do
           STDOUT.puts opts.help

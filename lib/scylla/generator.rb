@@ -16,6 +16,7 @@ module Scylla
       @runs = []
       
       Dir["#{@results_path}/*"].reverse.each do |run|
+        next unless run =~ /\d+/
         ran_at = Time.at(run.match(/\d+/)[0].to_i)
         
         @results = OpenStruct.new({
